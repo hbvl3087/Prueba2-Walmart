@@ -350,13 +350,6 @@ spring.jackson.default-property-inclusion=NON_NULL
 @CrossOrigin(origins = "*") // Ya incluido en controladores
 ```
 
-
-### Verificar la instalación
-- **Aplicación**: http://localhost:8080
-- **Frontend**: http://localhost:8080/checkout.html
-- **API Documentation**: http://localhost:8080/swagger-ui/
-- **API Docs JSON**: http://localhost:8080/v2/api-docs
-
 ## 🎨 Frontend de Demo
 
 El sistema incluye un frontend interactivo accesible en `http://localhost:8080/checkout.html` que permite:

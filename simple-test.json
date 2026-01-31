@@ -1,0 +1,7 @@
+{
+  "cartId": "test-cart",
+  "items": [
+    {"sku": "p-001", "quantity": 1}
+  ],
+  "paymentMethod": "DEBIT"
+}

@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walmart Checkout System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+        }
+
+        .section h3 {
+            color: #2a5298;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .product-grid {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-item:hover {
+            background: #e3f2fd;
+            border-color: #2a5298;
+            transform: translateY(-2px);
+        }
+
+        .product-info {
+            flex-grow: 1;
+        }
+
+        .product-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .product-category {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .product-price {
+            font-weight: 700;
+            color: #2a5298;
+            font-size: 1.1rem;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .quantity-control button {
+            background: #2a5298;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-control button:hover {
+            background: #1e3c72;
+        }
+
+        .quantity-control span {
+            min-width: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .payment-methods {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .payment-method {
+            padding: 0.75rem;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover {
+            border-color: #2a5298;
+        }
+
+        .payment-method.selected {
+            border-color: #2a5298;
+            background: #e3f2fd;
+        }
+
+        .payment-discount {
+            color: #28a745;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .cart {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-empty {
+            text-align: center;
+            color: #666;
+            padding: 2rem;
+        }
+
+        .checkout-summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-line.total {
+            font-weight: 700;
+            font-size: 1.3rem;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            padding-top: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .discount-item {
+            color: #90ee90;
+            font-size: 0.9rem;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background: #218838;
+        }
+
+        .checkout-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+
+        .promotions-info {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .promotion-item {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2a5298;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .result.success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .result.error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛒 Walmart Checkout System</h1>
+            <p>Sistema de checkout con promociones y medios de pago</p>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h3>📦 Productos Disponibles</h3>
+                <div class="promotions-info">
+                    <strong>🎉 Promociones Activas:</strong>
+                    <div class="promotion-item">• 20% de descuento en Electrónicos</div>
+                    <div class="promotion-item">• Café: Compra 2 y llévate 1 gratis</div>
+                    <div class="promotion-item">• $10 de descuento en compras mayores a $100</div>
+                    <div class="promotion-item">• $15 de descuento en Calzado</div>
+                </div>
+                <div id="products" class="product-grid">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>💳 Método de Pago</h3>
+                <div id="paymentMethods" class="payment-methods">
+                    <!-- Payment methods will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="cart">
+            <h3>🛍️ Carrito de Compras</h3>
+            <div id="cartItems">
+                <div class="cart-empty">Tu carrito está vacío. Agrega algunos productos!</div>
+            </div>
+            
+            <div id="checkoutSummary" style="display: none;">
+                <div class="checkout-summary">
+                    <div class="summary-line">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">$0.00</span>
+                    </div>
+                    <div id="discountsList"></div>
+                    <div class="summary-line total">
+                        <span>Total Final:</span>
+                        <span id="finalTotal">$0.00</span>
+                    </div>
+                </div>
+                <button id="checkoutBtn" class="checkout-btn">Procesar Pago</button>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Procesando pago...</p>
+            </div>
+
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        let products = {};
+        let paymentMethods = [];
+        let cart = [];
+        let selectedPaymentMethod = null;
+
+        // Load initial data
+        async function loadData() {
+            try {
+                const [productsResponse, paymentMethodsResponse] = await Promise.all([
+                    fetch('/api/v1/checkout/products'),
+                    fetch('/api/v1/checkout/payment-methods')
+                ]);
+
+                products = await productsResponse.json();
+                paymentMethods = await paymentMethodsResponse.json();
+
+                renderProducts();
+                renderPaymentMethods();
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+
+        function renderProducts() {
+            const container = document.getElementById('products');
+            container.innerHTML = '';
+
+            Object.values(products).forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'product-item';
+                productDiv.innerHTML = `
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-category">${product.category}</div>
+                    </div>
+                    <div class="product-price">$${product.price}</div>
+                    <div class="quantity-control">
+                        <button onclick="removeFromCart('${product.id}')">-</button>
+                        <span id="qty-${product.id}">0</span>
+                        <button onclick="addToCart('${product.id}')">+</button>
+                    </div>
+                `;
+                container.appendChild(productDiv);
+            });
+        }
+
+        function renderPaymentMethods() {
+            const container = document.getElementById('paymentMethods');
+            container.innerHTML = '';
+
+            paymentMethods.forEach(method => {
+                const methodDiv = document.createElement('div');
+                methodDiv.className = 'payment-method';
+                methodDiv.onclick = () => selectPaymentMethod(method);
+                
+                const discountText = method.discountPercentage > 0 
+                    ? `<div class="payment-discount">${method.discountPercentage}% de descuento</div>`
+                    : '';
+                
+                methodDiv.innerHTML = `
+                    <div>${method.displayName}</div>
+                    ${discountText}
+                `;
+                container.appendChild(methodDiv);
+            });
+        }
+
+        function addToCart(productId) {
+            const existingItem = cart.find(item => item.product.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({
+                    product: products[productId],
+                    quantity: 1
+                });
+            }
+            
+            updateUI();
+        }
+
+        function removeFromCart(productId) {
+            const existingItem = cart.find(item => item.product.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity--;
+                if (existingItem.quantity <= 0) {
+                    cart = cart.filter(item => item.product.id !== productId);
+                }
+            }
+            
+            updateUI();
+        }
+
+        function selectPaymentMethod(method) {
+            selectedPaymentMethod = method;
+            
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            event.target.closest('.payment-method').classList.add('selected');
+            updateSummary();
+        }
+
+        function updateUI() {
+            // Update quantity displays
+            Object.keys(products).forEach(productId => {
+                const qtyElement = document.getElementById(`qty-${productId}`);
+                const item = cart.find(item => item.product.id === productId);
+                qtyElement.textContent = item ? item.quantity : 0;
+            });
+
+            renderCart();
+            updateSummary();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cartItems');
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<div class="cart-empty">Tu carrito está vacío. Agrega algunos productos!</div>';
+                document.getElementById('checkoutSummary').style.display = 'none';
+                return;
+            }
+
+            container.innerHTML = '';
+            cart.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'cart-item';
+                itemDiv.innerHTML = `
+                    <div>
+                        <strong>${item.product.name}</strong>
+                        <div style="font-size: 0.9rem; color: #666;">Cantidad: ${item.quantity} x $${item.product.price}</div>
+                    </div>
+                    <div class="product-price">$${(item.product.price * item.quantity).toFixed(2)}</div>
+                `;
+                container.appendChild(itemDiv);
+            });
+
+            document.getElementById('checkoutSummary').style.display = 'block';
+        }
+
+        function updateSummary() {
+            if (cart.length === 0) return;
+
+            const subtotal = cart.reduce((sum, item) => 
+                sum + (item.product.price * item.quantity), 0);
+
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            
+            // Calculate payment method discount preview
+            let finalTotal = subtotal;
+            const discountsContainer = document.getElementById('discountsList');
+            discountsContainer.innerHTML = '';
+
+            if (selectedPaymentMethod && selectedPaymentMethod.discountPercentage > 0) {
+                const discount = subtotal * (selectedPaymentMethod.discountPercentage / 100);
+                finalTotal -= discount;
+                
+                const discountDiv = document.createElement('div');
+                discountDiv.className = 'summary-line discount-item';
+                discountDiv.innerHTML = `
+                    <span>Descuento ${selectedPaymentMethod.displayName}:</span>
+                    <span>-$${discount.toFixed(2)}</span>
+                `;
+                discountsContainer.appendChild(discountDiv);
+            }
+
+            document.getElementById('finalTotal').textContent = `$${finalTotal.toFixed(2)}`;
+            
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            checkoutBtn.disabled = !selectedPaymentMethod;
+        }
+
+        async function processCheckout() {
+            if (cart.length === 0 || !selectedPaymentMethod) return;
+
+            const checkoutData = {
+                items: cart,
+                paymentMethod: selectedPaymentMethod.name  // Send the enum name
+            };
+
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('result').style.display = 'none';
+
+            try {
+                const response = await fetch('/api/v1/checkout/process-legacy', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(checkoutData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showResult('success', `
+                        <h4>✅ Pago Procesado Exitosamente!</h4>
+                        <p><strong>ID de Transacción:</strong> ${result.transactionId}</p>
+                        <p><strong>Estado:</strong> ${result.paymentStatus}</p>
+                        <div style="margin-top: 1rem;">
+                            <strong>Resumen:</strong><br>
+                            <div style="white-space: pre-line; margin-top: 0.5rem;">${result.summary}</div>
+                        </div>
+                    `);
+
+                    // Clear cart after successful checkout
+                    setTimeout(() => {
+                        cart = [];
+                        selectedPaymentMethod = null;
+                        document.querySelectorAll('.payment-method').forEach(el => {
+                            el.classList.remove('selected');
+                        });
+                        updateUI();
+                    }, 3000);
+                } else {
+                    showResult('error', `❌ Error: ${result || 'Error procesando el pago'}`);
+                }
+            } catch (error) {
+                showResult('error', `❌ Error de conexión: ${error.message}`);
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+
+        function showResult(type, message) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.className = `result ${type}`;
+            resultDiv.innerHTML = message;
+            resultDiv.style.display = 'block';
+        }
+
+        // Event listeners
+        document.getElementById('checkoutBtn').addEventListener('click', processCheckout);
+
+        // Initialize
+        loadData();
+    </script>
+</body>
+</html>

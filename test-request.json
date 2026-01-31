@@ -1,0 +1,14 @@
+{
+  "cartId": "cart-1001",
+  "items": [
+    {"sku": "p-001", "quantity": 1},
+    {"sku": "p-010", "quantity": 2},
+    {"sku": "p-003", "quantity": 1}
+  ],
+  "shippingAddress": {
+    "street": "Av. Falsa 123",
+    "city": "Ciudad",
+    "zoneId": "zone-1"
+  },
+  "paymentMethod": "DEBIT"
+}

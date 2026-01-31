@@ -58,7 +58,8 @@ class CheckoutServiceTest {
 
         testCart = ShoppingCart.builder()
                 .items(Arrays.asList(item1, item2))
-                .paymentMethod(PaymentMethod.DEBIT_CARD)
+                //.paymentMethod(PaymentMethod.DEBIT_CARD)
+                .paymentMethod(PaymentMethod.DEBIT)
                 .build();
     }
 
@@ -69,11 +70,11 @@ class CheckoutServiceTest {
                 .thenReturn(Arrays.asList());
         when(discountService.calculateMinimumPurchaseDiscount(any(BigDecimal.class)))
                 .thenReturn(null);
-        when(discountService.calculatePaymentMethodDiscount(any(BigDecimal.class), eq(PaymentMethod.DEBIT_CARD)))
+        when(discountService.calculatePaymentMethodDiscount(any(BigDecimal.class), eq(PaymentMethod.DEBIT)))
                 .thenReturn(AppliedDiscount.builder()
                         .discountAmount(new BigDecimal("25.00"))
                         .build());
-        when(paymentService.processPayment(any(BigDecimal.class), eq(PaymentMethod.DEBIT_CARD)))
+       when(paymentService.processPayment(any(BigDecimal.class), eq(PaymentMethod.DEBIT)))
                 .thenReturn("CONFIRMED");
 
         // When

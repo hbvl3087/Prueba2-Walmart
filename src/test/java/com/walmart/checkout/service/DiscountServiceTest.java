@@ -31,7 +31,7 @@ class DiscountServiceTest {
     void testCalculatePaymentMethodDiscount() {
         BigDecimal subtotal = new BigDecimal("100.00");
         
-        AppliedDiscount result = discountService.calculatePaymentMethodDiscount(subtotal, PaymentMethod.DEBIT_CARD);
+        AppliedDiscount result = discountService.calculatePaymentMethodDiscount(subtotal, PaymentMethod.DEBIT);
         
         assertNotNull(result);
         assertEquals(new BigDecimal("10.00"), result.getDiscountAmount());
@@ -88,14 +88,14 @@ class DiscountServiceTest {
     @Test
     void testCalculateMinimumPurchaseDiscount() {
         // Given
-        BigDecimal subtotal = new BigDecimal("150.00");
+        BigDecimal subtotal = new BigDecimal("135000");
 
         Promotion promotion = Promotion.builder()
                 .promotionId("PROMO003")
-                .name("$10 off over $100")
+                .name("$9000 CLP off over $90000 CLP")
                 .type(Promotion.PromotionType.MINIMUM_PURCHASE)
-                .fixedDiscountAmount(new BigDecimal("10.00"))
-                .minimumPurchase(new BigDecimal("100.00"))
+                .fixedDiscountAmount(new BigDecimal("9000"))
+                .minimumPurchase(new BigDecimal("90000"))
                 .active(true)
                 .build();
 
@@ -107,21 +107,21 @@ class DiscountServiceTest {
 
         // Then
         assertNotNull(discount);
-        assertEquals(new BigDecimal("10.00"), discount.getDiscountAmount());
+        assertEquals(new BigDecimal("9000"), discount.getDiscountAmount());
         assertEquals("PROMOTION", discount.getDiscountType());
     }
 
     @Test
     void testCalculateMinimumPurchaseDiscountBelowThreshold() {
         // Given
-        BigDecimal subtotal = new BigDecimal("50.00");
+        BigDecimal subtotal = new BigDecimal("45000");
 
         Promotion promotion = Promotion.builder()
                 .promotionId("PROMO003")
-                .name("$10 off over $100")
+                .name("$9000 CLP off over $90000 CLP")
                 .type(Promotion.PromotionType.MINIMUM_PURCHASE)
-                .fixedDiscountAmount(new BigDecimal("10.00"))
-                .minimumPurchase(new BigDecimal("100.00"))
+                .fixedDiscountAmount(new BigDecimal("9000"))
+                .minimumPurchase(new BigDecimal("90000"))
                 .active(true)
                 .build();
 

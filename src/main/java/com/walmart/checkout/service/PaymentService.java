@@ -40,7 +40,7 @@ public class PaymentService {
         switch (paymentMethod) {
             case CREDIT_CARD:
                 return "Visa/MasterCard Processor";
-            case DEBIT_CARD:
+            case DEBIT:
                 return "Bank Debit Processor";
             case CASH:
                 return "Cash Register";

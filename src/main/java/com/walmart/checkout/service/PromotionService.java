@@ -72,24 +72,24 @@ public class PromotionService {
                 .active(true)
                 .build(),
                 
-            // $10 off on purchases over $100
+            // $9000 CLP off on purchases over $90000 CLP
             Promotion.builder()
                 .promotionId("PROMO003")
                 .name("Minimum Purchase Discount")
-                .description("$10 off on purchases over $100")
+                .description("$9000 CLP off on purchases over $90000 CLP")
                 .type(Promotion.PromotionType.MINIMUM_PURCHASE)
-                .fixedDiscountAmount(new BigDecimal("10"))
-                .minimumPurchase(new BigDecimal("100"))
+                .fixedDiscountAmount(new BigDecimal("9000"))
+                .minimumPurchase(new BigDecimal("90000"))
                 .active(true)
                 .build(),
                 
-            // Fixed $15 discount on Footwear
+            // Fixed $13500 CLP discount on Footwear
             Promotion.builder()
                 .promotionId("PROMO004")
                 .name("Footwear Discount")
-                .description("$15 off all Footwear")
+                .description("$13500 CLP off all Footwear")
                 .type(Promotion.PromotionType.FIXED_AMOUNT_DISCOUNT)
-                .fixedDiscountAmount(new BigDecimal("15"))
+                .fixedDiscountAmount(new BigDecimal("13500"))
                 .applicableCategories(Arrays.asList("Footwear"))
                 .active(true)
                 .build()

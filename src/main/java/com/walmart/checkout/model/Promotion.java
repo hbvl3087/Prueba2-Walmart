@@ -36,8 +36,8 @@ public class Promotion {
     
     public enum PromotionType {
         PERCENTAGE_DISCOUNT,    // 20% off
-        FIXED_AMOUNT_DISCOUNT, // $10 off
+        FIXED_AMOUNT_DISCOUNT, // $9000 CLP off
         BUY_X_GET_Y_FREE,      // Buy 2 get 1 free
-        MINIMUM_PURCHASE       // $5 off on purchases over $50
+        MINIMUM_PURCHASE       // $13500 CLP off on purchases over $90000 CLP
     }
 }

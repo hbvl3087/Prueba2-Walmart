@@ -104,18 +104,18 @@ public class CheckoutService {
     private String generateSummary(BigDecimal subtotal, List<AppliedDiscount> discounts, BigDecimal finalTotal) {
         StringBuilder summary = new StringBuilder();
         summary.append("Checkout Summary:\n");
-        summary.append(String.format("Subtotal: $%.2f\n", subtotal));
+        summary.append(String.format("Subtotal: $%.0f CLP\n", subtotal));
         
         if (!discounts.isEmpty()) {
             summary.append("Discounts Applied:\n");
             for (AppliedDiscount discount : discounts) {
-                summary.append(String.format("  - %s: -$%.2f\n", discount.getDiscountName(), discount.getDiscountAmount()));
+                summary.append(String.format("  - %s: -$%.0f CLP\n", discount.getDiscountName(), discount.getDiscountAmount()));
             }
-            summary.append(String.format("Total Discounts: -$%.2f\n", 
+            summary.append(String.format("Total Discounts: -$%.0f CLP\n", 
                 discounts.stream().map(AppliedDiscount::getDiscountAmount).reduce(BigDecimal.ZERO, BigDecimal::add)));
         }
         
-        summary.append(String.format("Final Total: $%.2f", finalTotal));
+        summary.append(String.format("Final Total: $%.0f CLP", finalTotal));
         return summary.toString();
     }
 }

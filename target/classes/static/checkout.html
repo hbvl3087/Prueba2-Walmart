@@ -317,8 +317,8 @@
                     <strong>🎉 Promociones Activas:</strong>
                     <div class="promotion-item">• 20% de descuento en Electrónicos</div>
                     <div class="promotion-item">• Café: Compra 2 y llévate 1 gratis</div>
-                    <div class="promotion-item">• $10 de descuento en compras mayores a $100</div>
-                    <div class="promotion-item">• $15 de descuento en Calzado</div>
+                    <div class="promotion-item">• $9000 CLP de descuento en compras mayores a $90000 CLP</div>
+                    <div class="promotion-item">• $13500 CLP de descuento en Calzado</div>
                 </div>
                 <div id="products" class="product-grid">
                     <!-- Products will be loaded here -->
@@ -500,7 +500,7 @@
                         <strong>${item.product.name}</strong>
                         <div style="font-size: 0.9rem; color: #666;">Cantidad: ${item.quantity} x $${item.product.price}</div>
                     </div>
-                    <div class="product-price">$${(item.product.price * item.quantity).toFixed(2)}</div>
+                    <div class="product-price">$${Math.round(item.product.price * item.quantity).toLocaleString()} CLP</div>
                 `;
                 container.appendChild(itemDiv);
             });
@@ -514,7 +514,7 @@
             const subtotal = cart.reduce((sum, item) => 
                 sum + (item.product.price * item.quantity), 0);
 
-            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('subtotal').textContent = `$${Math.round(subtotal).toLocaleString()} CLP`;
             
             // Calculate payment method discount preview
             let finalTotal = subtotal;
@@ -529,12 +529,12 @@
                 discountDiv.className = 'summary-line discount-item';
                 discountDiv.innerHTML = `
                     <span>Descuento ${selectedPaymentMethod.displayName}:</span>
-                    <span>-$${discount.toFixed(2)}</span>
+                    <span>-$${Math.round(discount).toLocaleString()} CLP</span>
                 `;
                 discountsContainer.appendChild(discountDiv);
             }
 
-            document.getElementById('finalTotal').textContent = `$${finalTotal.toFixed(2)}`;
+            document.getElementById('finalTotal').textContent = `$${Math.round(finalTotal).toLocaleString()} CLP`;
             
             const checkoutBtn = document.getElementById('checkoutBtn');
             checkoutBtn.disabled = !selectedPaymentMethod;

@@ -348,26 +348,10 @@ spring.jackson.default-property-inclusion=NON_NULL
 ### Configuración de CORS (si es necesario)
 ```java
 @CrossOrigin(origins = "*") // Ya incluido en controladores
-
-
-## 🏆 **Proyecto Completamente Funcional** 
-
-✅ **Tu estructura JSON personalizada funciona perfectamente**  
-✅ **Cumple 100% de los requisitos técnicos especificados**  
-✅ **API REST extensible y bien documentada**  
-✅ **Sistema de promociones automático y configurable**  
-✅ **Ready para producción con testing completo**
-
-### 📞 Soporte y Contacto
-
-Para consultas técnicas o mejoras, revisar la documentación de la API en Swagger UI o contactar al equipo de desarrollo.
-
-**¡Gracias por usar Walmart Checkout Service!** 🛒⚡
-./mvnw clean package
-java -jar target/checkout-service-1.0.0.jar
 ```
 
-### 3. Verificar la instalación
+
+### Verificar la instalación
 - **Aplicación**: http://localhost:8080
 - **Frontend**: http://localhost:8080/checkout.html
 - **API Documentation**: http://localhost:8080/swagger-ui/

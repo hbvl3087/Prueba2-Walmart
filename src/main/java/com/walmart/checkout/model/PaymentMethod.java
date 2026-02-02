@@ -2,7 +2,6 @@ package com.walmart.checkout.model;
 
 public enum PaymentMethod {
     CREDIT_CARD("Tarjeta de Crédito", 0.0),
-    //DEBIT_CARD("Debit Card", 10.0),
     DEBIT("Tarjeta de Débito", 10.0), // Added for compatibility with your example
     CASH("Efectivo", 5.0),
     DIGITAL_WALLET("Billetera Digital", 3.0),

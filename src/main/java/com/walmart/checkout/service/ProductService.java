@@ -56,34 +56,6 @@ public class ProductService {
                 .eligibleForPromotions(true)
                 .build());
                 
-        // Keep existing products too
-        catalog.put("PROD001", Product.builder()
-                .id("PROD001")
-                .name("Smartphone Samsung Galaxy")
-                .price(new BigDecimal("809991"))
-                .category("Electronics")
-                .description("Latest Samsung Galaxy smartphone")
-                .eligibleForPromotions(true)
-                .build());
-                
-        catalog.put("PROD002", Product.builder()
-                .id("PROD002")
-                .name("Laptop Dell XPS 13")
-                .price(new BigDecimal("1169991"))
-                .category("Electronics")
-                .description("High-performance ultrabook")
-                .eligibleForPromotions(true)
-                .build());
-                
-        catalog.put("PROD003", Product.builder()
-                .id("PROD003")
-                .name("Nike Air Max Sneakers")
-                .price(new BigDecimal("116991"))
-                .category("Footwear")
-                .description("Comfortable running shoes")
-                .eligibleForPromotions(true)
-                .build());
-                
         catalog.put("PROD004", Product.builder()
                 .id("PROD004")
                 .name("Organic Coffee Beans")

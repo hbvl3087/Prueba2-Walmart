@@ -1,12 +1,12 @@
 package com.walmart.checkout.model;
 
 public enum PaymentMethod {
-    CREDIT_CARD("Credit Card", 0.0),
+    CREDIT_CARD("Tarjeta de Crédito", 0.0),
     //DEBIT_CARD("Debit Card", 10.0),
-    DEBIT("Debit Card", 10.0), // Added for compatibility with your example
-    CASH("Cash", 5.0),
-    DIGITAL_WALLET("Digital Wallet", 3.0),
-    BANK_TRANSFER("Bank Transfer", 7.0);
+    DEBIT("Tarjeta de Débito", 10.0), // Added for compatibility with your example
+    CASH("Efectivo", 5.0),
+    DIGITAL_WALLET("Billetera Digital", 3.0),
+    BANK_TRANSFER("Transferencia Bancaria", 7.0);
     
     private final String displayName;
     private final double discountPercentage;

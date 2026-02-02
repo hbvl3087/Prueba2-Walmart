@@ -30,26 +30,26 @@ public class PromotionService {
     }
     
     private boolean isPromotionApplicable(Promotion promotion, String productId, String category) {
-        // Check if promotion applies to specific product
+        // Verificar si la promoción aplica a producto específico
         if (promotion.getApplicableProductIds() != null && 
             promotion.getApplicableProductIds().contains(productId)) {
             return true;
         }
         
-        // Check if promotion applies to product category
+        // Verificar si la promoción aplica a categoría del producto
         if (promotion.getApplicableCategories() != null && 
             promotion.getApplicableCategories().contains(category)) {
             return true;
         }
         
-        // If no specific products or categories defined, promotion applies to all
+        // Si no hay productos o categorías específicas definidas, la promoción aplica a todos
         return (promotion.getApplicableProductIds() == null || promotion.getApplicableProductIds().isEmpty()) &&
                (promotion.getApplicableCategories() == null || promotion.getApplicableCategories().isEmpty());
     }
     
     private List<Promotion> initializePromotions() {
         return Arrays.asList(
-            // 20% off Electronics
+            // 20% de descuento en Electrónicos
             Promotion.builder()
                 .promotionId("PROMO001")
                 .name("Electronics Sale")
@@ -60,7 +60,7 @@ public class PromotionService {
                 .active(true)
                 .build(),
                 
-            // Buy 2 get 1 free on specific product
+            // Compra 2 obtén 1 gratis en producto específico
             Promotion.builder()
                 .promotionId("PROMO002")
                 .name("Coffee Special")
@@ -72,7 +72,7 @@ public class PromotionService {
                 .active(true)
                 .build(),
                 
-            // $9000 CLP off on purchases over $90000 CLP
+            // $9000 CLP de descuento en compras superiores a $90000 CLP
             Promotion.builder()
                 .promotionId("PROMO003")
                 .name("Minimum Purchase Discount")
@@ -83,7 +83,7 @@ public class PromotionService {
                 .active(true)
                 .build(),
                 
-            // Fixed $13500 CLP discount on Footwear
+            // Descuento fijo de $13500 CLP en Calzado
             Promotion.builder()
                 .promotionId("PROMO004")
                 .name("Footwear Discount")

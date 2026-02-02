@@ -19,25 +19,25 @@ public class Promotion {
     private String description;
     private PromotionType type;
     
-    // Discount configuration
+    // Configuración de descuento
     private BigDecimal discountPercentage;
     private BigDecimal fixedDiscountAmount;
     private BigDecimal minimumPurchase;
     
-    // Applicable products/categories
+    // Productos/categorías aplicables
     private List<String> applicableProductIds;
     private List<String> applicableCategories;
     
-    // Quantity-based promotions
+    // Promociones basadas en cantidad
     private Integer requiredQuantity;
-    private Integer freeQuantity; // For buy X get Y free
+    private Integer freeQuantity; // Para compra X obtén Y gratis
     
     private boolean active = true;
     
     public enum PromotionType {
-        PERCENTAGE_DISCOUNT,    // 20% off
-        FIXED_AMOUNT_DISCOUNT, // $9000 CLP off
-        BUY_X_GET_Y_FREE,      // Buy 2 get 1 free
-        MINIMUM_PURCHASE       // $13500 CLP off on purchases over $90000 CLP
+        PERCENTAGE_DISCOUNT,    // 20% de descuento
+        FIXED_AMOUNT_DISCOUNT, // $9000 CLP de descuento
+        BUY_X_GET_Y_FREE,      // Compra 2 obtén 1 gratis
+        MINIMUM_PURCHASE       // $13500 CLP de descuento en compras superiores a $90000 CLP
     }
 }

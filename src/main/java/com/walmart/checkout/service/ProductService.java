@@ -28,7 +28,7 @@ public class ProductService {
     private Map<String, Product> initializeProductCatalog() {
         Map<String, Product> catalog = new HashMap<>();
         
-        // Sample products for demonstration - Updated with p-001, p-010, p-003 format
+        // Productos de muestra para demostración - Actualizado con formato p-001, p-010, p-003
         catalog.put("p-001", Product.builder()
                 .id("p-001")
                 .name("Smartphone Samsung Galaxy")

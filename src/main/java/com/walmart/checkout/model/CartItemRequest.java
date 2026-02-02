@@ -16,16 +16,16 @@ public class CartItemRequest {
     @Min(value = 1, message = "Quantity must be at least 1")
     private Integer quantity;
     
-    // Default constructor
+    // Constructor por defecto
     public CartItemRequest() {}
     
-    // Constructor with parameters
-    public CartItemRequest(String sku, Integer quantity) {
+    // Constructor con parámetros
+    public CartItemRequest(String sku, int quantity) {
         this.sku = sku;
         this.quantity = quantity;
     }
     
-    // Getters and Setters
+    // Getters y Setters
     public String getSku() {
         return sku;
     }

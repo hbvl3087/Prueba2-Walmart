@@ -72,7 +72,7 @@ public class DiscountService {
                 .filter(p -> subtotal.compareTo(p.getMinimumPurchase()) >= 0)
                 .collect(Collectors.toList());
         
-        // Apply the best minimum purchase promotion
+        // Aplicar la mejor promoción de compra mínima
         return minimumPurchasePromotions.stream()
                 .max((p1, p2) -> p1.getFixedDiscountAmount().compareTo(p2.getFixedDiscountAmount()))
                 .map(promotion -> AppliedDiscount.builder()
@@ -100,7 +100,7 @@ public class DiscountService {
                 return calculateBuyXGetYDiscount(promotion, cartItem);
                 
             case MINIMUM_PURCHASE:
-                // Minimum purchase discounts are handled separately at cart level
+                // Los descuentos de compra mínima se manejan por separado a nivel de carrito
                 return BigDecimal.ZERO;
                 
             default:
@@ -117,7 +117,7 @@ public class DiscountService {
             return BigDecimal.ZERO;
         }
         
-        // Calculate how many free items the customer gets
+        // Calcular cuántos artículos gratis obtiene el cliente
         int eligibleSets = quantity / requiredQuantity;
         int totalFreeItems = Math.min(eligibleSets * freeQuantity, quantity);
         

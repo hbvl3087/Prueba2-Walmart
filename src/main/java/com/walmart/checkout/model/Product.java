@@ -29,6 +29,6 @@ public class Product {
     private String category;
     private String description;
     
-    // Additional fields for promotions
+    // Campos adicionales para promociones
     private boolean eligibleForPromotions = true;
 }

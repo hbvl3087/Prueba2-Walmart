@@ -65,7 +65,7 @@ class CheckoutServiceTest {
 
     @Test
     void testProcessCheckoutCalculatesCorrectSubtotal() {
-        // Given
+        // Dado
         when(discountService.calculateProductDiscounts(any(CartItem.class)))
                 .thenReturn(Arrays.asList());
         when(discountService.calculateMinimumPurchaseDiscount(any(BigDecimal.class)))
@@ -77,10 +77,10 @@ class CheckoutServiceTest {
        when(paymentService.processPayment(any(BigDecimal.class), eq(PaymentMethod.DEBIT)))
                 .thenReturn("CONFIRMED");
 
-        // When
+        // Cuando
         CheckoutResult result = checkoutService.processCheckout(testCart);
 
-        // Then
+        // Entonces
         assertEquals(new BigDecimal("250.00"), result.getSubtotal()); // (100*2) + (50*1)
         assertEquals(new BigDecimal("25.00"), result.getTotalDiscounts());
         assertEquals(new BigDecimal("225.00"), result.getFinalTotal());
@@ -90,7 +90,7 @@ class CheckoutServiceTest {
 
     @Test
     void testProcessCheckoutWithProductDiscounts() {
-        // Given
+        // Dado
         AppliedDiscount productDiscount = AppliedDiscount.builder()
                 .discountAmount(new BigDecimal("20.00"))
                 .discountName("Product Discount")
@@ -105,10 +105,10 @@ class CheckoutServiceTest {
         when(paymentService.processPayment(any(BigDecimal.class), any(PaymentMethod.class)))
                 .thenReturn("CONFIRMED");
 
-        // When
+        // Cuando
         CheckoutResult result = checkoutService.processCheckout(testCart);
 
-        // Then
+        // Entonces
         assertEquals(new BigDecimal("250.00"), result.getSubtotal());
         assertTrue(result.getTotalDiscounts().compareTo(BigDecimal.ZERO) > 0);
         assertNotNull(result.getProductDiscounts());

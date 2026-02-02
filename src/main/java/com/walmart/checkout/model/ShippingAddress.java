@@ -17,17 +17,17 @@ public class ShippingAddress {
     @NotBlank(message = "Zone ID is required")
     private String zoneId;
     
-    // Default constructor
+    // Constructor por defecto
     public ShippingAddress() {}
     
-    // Constructor with parameters
+    // Constructor con parámetros
     public ShippingAddress(String street, String city, String zoneId) {
         this.street = street;
         this.city = city;
         this.zoneId = zoneId;
     }
     
-    // Getters and Setters
+    // Getters y Setters
     public String getStreet() {
         return street;
     }

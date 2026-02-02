@@ -18,7 +18,7 @@ public class CheckoutResult {
     private String transactionId;
     private ShoppingCart cart;
     
-    // Financial breakdown
+    // Desglose financiero
     private BigDecimal subtotal;
     private List<AppliedDiscount> productDiscounts;
     private List<AppliedDiscount> promotionDiscounts;
@@ -26,11 +26,11 @@ public class CheckoutResult {
     private BigDecimal totalDiscounts;
     private BigDecimal finalTotal;
     
-    // Transaction details
+    // Detalles de la transacción
     private PaymentMethod paymentMethod;
     private String paymentStatus; // PENDING, CONFIRMED, FAILED
     private LocalDateTime processedAt;
     
-    // Summary for display
+    // Resumen para mostrar
     private String summary;
 }

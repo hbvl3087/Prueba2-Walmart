@@ -20,13 +20,13 @@ public class CheckoutService {
     private PaymentService paymentService;
     
     public CheckoutResult processCheckout(ShoppingCart cart) {
-        // Generate transaction ID
+        // Generar ID de transacción
         String transactionId = UUID.randomUUID().toString();
         
-        // Calculate subtotal
+        // Calcular subtotal
         BigDecimal subtotal = calculateSubtotal(cart);
         
-        // Apply product and promotion discounts
+        // Aplicar descuentos de producto y promoción
         List<AppliedDiscount> allDiscounts = new ArrayList<>();
         List<AppliedDiscount> productDiscounts = new ArrayList<>();
         
@@ -35,7 +35,7 @@ public class CheckoutService {
             allDiscounts.addAll(itemDiscounts);
             productDiscounts.addAll(itemDiscounts);
             
-            // Update cart item with discount information
+            // Actualizar item del carrito con información de descuento
             BigDecimal itemDiscount = itemDiscounts.stream()
                     .map(AppliedDiscount::getDiscountAmount)
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -45,7 +45,7 @@ public class CheckoutService {
             item.setItemTotal(item.getItemSubtotal().subtract(itemDiscount));
         }
         
-        // Apply minimum purchase discount (cart-level promotion)
+        // Aplicar descuento de compra mínima (promoción a nivel de carrito)
         AppliedDiscount minimumPurchaseDiscount = discountService.calculateMinimumPurchaseDiscount(subtotal);
         List<AppliedDiscount> promotionDiscounts = new ArrayList<>();
         if (minimumPurchaseDiscount != null) {
@@ -53,30 +53,30 @@ public class CheckoutService {
             promotionDiscounts.add(minimumPurchaseDiscount);
         }
         
-        // Apply payment method discount
+        // Aplicar descuento de método de pago
         AppliedDiscount paymentMethodDiscount = discountService.calculatePaymentMethodDiscount(subtotal, cart.getPaymentMethod());
         if (paymentMethodDiscount != null) {
             allDiscounts.add(paymentMethodDiscount);
         }
         
-        // Calculate totals
+        // Calcular totales
         BigDecimal totalDiscounts = allDiscounts.stream()
                 .map(AppliedDiscount::getDiscountAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
                 
         BigDecimal finalTotal = subtotal.subtract(totalDiscounts);
         
-        // Update cart with calculated values
+        // Actualizar carrito con valores calculados
         cart.setSubtotal(subtotal);
         cart.setTotalDiscounts(totalDiscounts);
         cart.setFinalTotal(finalTotal);
         cart.setAppliedDiscounts(allDiscounts);
         cart.setUpdatedAt(LocalDateTime.now());
         
-        // Process payment (simulated)
+        // Procesar pago (simulado)
         String paymentStatus = paymentService.processPayment(finalTotal, cart.getPaymentMethod());
         
-        // Build checkout result
+        // Construir resultado del checkout
         CheckoutResult result = CheckoutResult.builder()
                 .transactionId(transactionId)
                 .cart(cart)

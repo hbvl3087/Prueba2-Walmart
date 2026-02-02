@@ -37,6 +37,6 @@ public class ShoppingCart {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     
-    // Applied promotions and discounts for transparency
+    // Promociones aplicadas y descuentos para transparencia
     private List<AppliedDiscount> appliedDiscounts;
 }

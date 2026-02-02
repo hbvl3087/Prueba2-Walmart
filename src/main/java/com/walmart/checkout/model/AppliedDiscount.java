@@ -18,5 +18,5 @@ public class AppliedDiscount {
     private String discountType; // PRODUCT, PROMOTION, PAYMENT_METHOD
     private BigDecimal discountAmount;
     private String description;
-    private String applicableItem; // product ID or "TOTAL" for payment method discounts
+    private String applicableItem; // ID del producto o "TOTAL" para descuentos de método de pago
 }

@@ -50,7 +50,7 @@ class DiscountServiceTest {
 
     @Test
     void testCalculateProductDiscountsWithPercentagePromotion() {
-        // Given
+        // Dado
         Product product = Product.builder()
                 .id("PROD001")
                 .name("Test Product")
@@ -74,10 +74,10 @@ class DiscountServiceTest {
         when(promotionService.getApplicablePromotions("PROD001", "Electronics"))
                 .thenReturn(Arrays.asList(promotion));
 
-        // When
+        // Cuando
         List<AppliedDiscount> discounts = discountService.calculateProductDiscounts(cartItem);
 
-        // Then
+        // Entonces
         assertEquals(1, discounts.size());
         AppliedDiscount discount = discounts.get(0);
         assertEquals(new BigDecimal("20.00"), discount.getDiscountAmount());
@@ -87,7 +87,7 @@ class DiscountServiceTest {
 
     @Test
     void testCalculateMinimumPurchaseDiscount() {
-        // Given
+        // Dado
         BigDecimal subtotal = new BigDecimal("135000");
 
         Promotion promotion = Promotion.builder()
@@ -102,10 +102,10 @@ class DiscountServiceTest {
         when(promotionService.getActivePromotions())
                 .thenReturn(Arrays.asList(promotion));
 
-        // When
+        // Cuando
         AppliedDiscount discount = discountService.calculateMinimumPurchaseDiscount(subtotal);
 
-        // Then
+        // Entonces
         assertNotNull(discount);
         assertEquals(new BigDecimal("9000"), discount.getDiscountAmount());
         assertEquals("PROMOTION", discount.getDiscountType());
@@ -113,7 +113,7 @@ class DiscountServiceTest {
 
     @Test
     void testCalculateMinimumPurchaseDiscountBelowThreshold() {
-        // Given
+        // Dado
         BigDecimal subtotal = new BigDecimal("45000");
 
         Promotion promotion = Promotion.builder()
@@ -128,10 +128,10 @@ class DiscountServiceTest {
         when(promotionService.getActivePromotions())
                 .thenReturn(Arrays.asList(promotion));
 
-        // When
+        // Cuando
         AppliedDiscount discount = discountService.calculateMinimumPurchaseDiscount(subtotal);
 
-        // Then
+        // Entonces
         assertNull(discount);
     }
 }

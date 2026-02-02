@@ -12,12 +12,12 @@ public class PaymentService {
     private final Random random = new Random();
     
     public String processPayment(BigDecimal amount, PaymentMethod paymentMethod) {
-        // Simulate payment processing
+        // Simular procesamiento de pago
         try {
-            // Simulate processing time
+            // Simular tiempo de procesamiento
             Thread.sleep(100);
             
-            // Simulate success/failure (95% success rate)
+            // Simular éxito/falla (95% tasa de éxito)
             boolean success = random.nextDouble() < 0.95;
             
             if (success) {
@@ -32,7 +32,7 @@ public class PaymentService {
     }
     
     public boolean validatePaymentMethod(PaymentMethod paymentMethod) {
-        // Basic validation - in real world would validate card details, etc.
+        // Validación básica - en el mundo real se validarían detalles de tarjeta, etc.
         return paymentMethod != null;
     }
     

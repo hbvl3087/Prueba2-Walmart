@@ -25,10 +25,10 @@ public class ShoppingCartRequest {
     @NotNull(message = "Payment method is required")
     private PaymentMethod paymentMethod;
     
-    // Default constructor
+    // Constructor por defecto
     public ShoppingCartRequest() {}
     
-    // Constructor with parameters
+    // Constructor con parámetros
     public ShoppingCartRequest(String cartId, List<CartItemRequest> items, ShippingAddress shippingAddress, PaymentMethod paymentMethod) {
         this.cartId = cartId;
         this.items = items;
@@ -36,7 +36,7 @@ public class ShoppingCartRequest {
         this.paymentMethod = paymentMethod;
     }
     
-    // Getters and Setters
+    // Getters y Setters
     public String getCartId() {
         return cartId;
     }

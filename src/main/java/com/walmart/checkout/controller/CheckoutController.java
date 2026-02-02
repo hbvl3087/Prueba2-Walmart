@@ -42,19 +42,10 @@ public class CheckoutController {
     })
     public ResponseEntity<?> processCheckout(@Valid @RequestBody ShoppingCartRequest cartRequest) {
         try {
-            // Debug logging
-            System.out.println("Received request: " + cartRequest);
-            if (cartRequest.getItems() != null) {
-                for (int i = 0; i < cartRequest.getItems().size(); i++) {
-                    CartItemRequest item = cartRequest.getItems().get(i);
-                    System.out.println("Item " + i + ": sku=" + item.getSku() + ", quantity=" + item.getQuantity());
-                }
-            }
-            
-            // Convert ShoppingCartRequest to ShoppingCart
+            // Convertir ShoppingCartRequest a ShoppingCart
             ShoppingCart cart = convertToShoppingCart(cartRequest);
             
-            // Set cart metadata
+            // Establecer metadatos del carrito
             if (cart.getCartId() == null || cart.getCartId().isEmpty()) {
                 cart.setCartId(UUID.randomUUID().toString());
             }
@@ -80,12 +71,12 @@ public class CheckoutController {
     })
     public ResponseEntity<?> processCheckoutLegacy(@Valid @RequestBody ShoppingCart cart) {
         try {
-            // Set cart metadata
+            // Establecer metadatos del carrito
             if (cart.getCartId() == null || cart.getCartId().isEmpty()) {
                 cart.setCartId(UUID.randomUUID().toString());
             }
             
-            // Validate products exist and ensure complete product data
+            // Validar que los productos existan y asegurar datos completos del producto
             for (CartItem item : cart.getItems()) {
                 String productId = item.getProduct().getId();
                 if (productService.findById(productId).isEmpty()) {
@@ -93,7 +84,7 @@ public class CheckoutController {
                             .body("Product not found: " + productId);
                 }
                 
-                // Ensure we have the complete product data
+                // Asegurar que tengamos los datos completos del producto
                 Product fullProduct = productService.findById(productId).get();
                 item.setProduct(fullProduct);
             }
@@ -110,13 +101,13 @@ public class CheckoutController {
     private ShoppingCart convertToShoppingCart(ShoppingCartRequest request) {
         List<CartItem> cartItems = new ArrayList<>();
         
-        // Convert each CartItemRequest to CartItem
+        // Convertir cada CartItemRequest a CartItem
         for (CartItemRequest itemRequest : request.getItems()) {
-            // Find product by SKU
+            // Encontrar producto por SKU
             Product product = productService.findById(itemRequest.getSku())
                     .orElseThrow(() -> new IllegalArgumentException("Product not found with SKU: " + itemRequest.getSku()));
             
-            // Create CartItem with full product data
+            // Crear CartItem con datos completos del producto
             CartItem cartItem = CartItem.builder()
                     .product(product)
                     .quantity(itemRequest.getQuantity())

@@ -52,19 +52,19 @@ public class PromotionService {
             // 20% de descuento en Electrónicos
             Promotion.builder()
                 .promotionId("PROMO001")
-                .name("Electronics Sale")
-                .description("20% off all Electronics")
+                .name("Oferta Electrónicos")
+                .description("20% de descuento en todos los Electrónicos")
                 .type(Promotion.PromotionType.PERCENTAGE_DISCOUNT)
                 .discountPercentage(new BigDecimal("20"))
-                .applicableCategories(Arrays.asList("Electronics"))
+                .applicableCategories(Arrays.asList("Electrónicos"))
                 .active(true)
                 .build(),
                 
             // Compra 2 obtén 1 gratis en producto específico
             Promotion.builder()
                 .promotionId("PROMO002")
-                .name("Coffee Special")
-                .description("Buy 2 Coffee get 1 free")
+                .name("Oferta Especial Café")
+                .description("Compra 2 Café y obtén 1 gratis")
                 .type(Promotion.PromotionType.BUY_X_GET_Y_FREE)
                 .requiredQuantity(2)
                 .freeQuantity(1)
@@ -75,8 +75,8 @@ public class PromotionService {
             // $9000 CLP de descuento en compras superiores a $90000 CLP
             Promotion.builder()
                 .promotionId("PROMO003")
-                .name("Minimum Purchase Discount")
-                .description("$9000 CLP off on purchases over $90000 CLP")
+                .name("Descuento Compra Mínima")
+                .description("$9000 CLP de descuento en compras superiores a $90000 CLP")
                 .type(Promotion.PromotionType.MINIMUM_PURCHASE)
                 .fixedDiscountAmount(new BigDecimal("9000"))
                 .minimumPurchase(new BigDecimal("90000"))
@@ -86,11 +86,11 @@ public class PromotionService {
             // Descuento fijo de $13500 CLP en Calzado
             Promotion.builder()
                 .promotionId("PROMO004")
-                .name("Footwear Discount")
-                .description("$13500 CLP off all Footwear")
+                .name("Descuento Calzado")
+                .description("$13500 CLP de descuento en todo el Calzado")
                 .type(Promotion.PromotionType.FIXED_AMOUNT_DISCOUNT)
                 .fixedDiscountAmount(new BigDecimal("13500"))
-                .applicableCategories(Arrays.asList("Footwear"))
+                .applicableCategories(Arrays.asList("Calzado"))
                 .active(true)
                 .build()
         );

@@ -55,7 +55,7 @@ class DiscountServiceTest {
                 .id("PROD001")
                 .name("Test Product")
                 .price(new BigDecimal("100.00"))
-                .category("Electronics")
+                .category("Electrónicos")
                 .eligibleForPromotions(true)
                 .build();
 
@@ -66,12 +66,12 @@ class DiscountServiceTest {
 
         Promotion promotion = Promotion.builder()
                 .promotionId("PROMO001")
-                .name("20% Off Electronics")
+                .name("20% Descuento Electrónicos")
                 .type(Promotion.PromotionType.PERCENTAGE_DISCOUNT)
                 .discountPercentage(new BigDecimal("20"))
                 .build();
 
-        when(promotionService.getApplicablePromotions("PROD001", "Electronics"))
+        when(promotionService.getApplicablePromotions("PROD001", "Electrónicos"))
                 .thenReturn(Arrays.asList(promotion));
 
         // Cuando
@@ -82,7 +82,7 @@ class DiscountServiceTest {
         AppliedDiscount discount = discounts.get(0);
         assertEquals(new BigDecimal("20.00"), discount.getDiscountAmount());
         assertEquals("PROMOTION", discount.getDiscountType());
-        assertEquals("20% Off Electronics", discount.getDiscountName());
+        assertEquals("20% Descuento Electrónicos", discount.getDiscountName());
     }
 
     @Test

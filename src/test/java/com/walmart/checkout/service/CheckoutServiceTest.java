@@ -36,14 +36,14 @@ class CheckoutServiceTest {
                 .id("PROD001")
                 .name("Test Product 1")
                 .price(new BigDecimal("100.00"))
-                .category("Electronics")
+                .category("Electrónicos")
                 .build();
 
         Product product2 = Product.builder()
                 .id("PROD002")
                 .name("Test Product 2")
                 .price(new BigDecimal("50.00"))
-                .category("Clothing")
+                .category("Ropa")
                 .build();
 
         CartItem item1 = CartItem.builder()

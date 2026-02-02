@@ -24,8 +24,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Walmart Checkout Service API")
-                .description("Retail checkout service with promotions and payment methods")
+                .title("API del Servicio de Checkout Walmart")
+                .description("Servicio de checkout minorista con promociones y métodos de pago")
                 .version("1.0.0")
                 .build();
     }

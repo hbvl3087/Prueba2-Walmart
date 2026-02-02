@@ -58,10 +58,10 @@ public class DiscountService {
         
         return AppliedDiscount.builder()
                 .discountId("PAYMENT_" + paymentMethod.name())
-                .discountName(paymentMethod.getDisplayName() + " Discount")
+                .discountName(paymentMethod.getDisplayName() + " Descuento")
                 .discountType("PAYMENT_METHOD")
                 .discountAmount(discountAmount)
-                .description(paymentMethod.getDiscountPercentage() + "% discount for " + paymentMethod.getDisplayName())
+                .description(paymentMethod.getDiscountPercentage() + "% de descuento por " + paymentMethod.getDisplayName())
                 .applicableItem("TOTAL")
                 .build();
     }

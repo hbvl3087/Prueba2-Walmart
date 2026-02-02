@@ -80,12 +80,52 @@
             align-items: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            margin-bottom: 0.5rem;
         }
 
         .product-item:hover {
             background: #e3f2fd;
             border-color: #2a5298;
             transform: translateY(-2px);
+        }
+
+        .category-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .category-header {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 2px solid #2a5298;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .category-header:hover {
+            background: #e9ecef;
+        }
+
+        .category-header h3 {
+            margin: 0;
+            color: #2a5298;
+            font-size: 1.2rem;
+        }
+
+        .toggle-icon {
+            font-size: 1rem;
+            color: #2a5298;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .category-products {
+            padding-left: 1rem;
+            border-left: 3px solid #e9ecef;
         }
 
         .product-info {
@@ -372,41 +412,80 @@
         // Load initial data
         async function loadData() {
             try {
-                const [productsResponse, paymentMethodsResponse] = await Promise.all([
-                    fetch('/api/v1/checkout/products'),
+                const [groupedProductsResponse, paymentMethodsResponse] = await Promise.all([
+                    fetch('/api/v1/checkout/products/grouped'),
                     fetch('/api/v1/checkout/payment-methods')
                 ]);
 
-                products = await productsResponse.json();
+                const groupedProducts = await groupedProductsResponse.json();
                 paymentMethods = await paymentMethodsResponse.json();
 
-                renderProducts();
+                // Convertir productos agrupados a formato plano para compatibilidad
+                products = {};
+                Object.values(groupedProducts).forEach(categoryProducts => {
+                    categoryProducts.forEach(product => {
+                        products[product.id] = product;
+                    });
+                });
+
+                renderGroupedProducts(groupedProducts);
                 renderPaymentMethods();
             } catch (error) {
                 console.error('Error loading data:', error);
             }
         }
 
-        function renderProducts() {
+        function renderGroupedProducts(groupedProducts) {
             const container = document.getElementById('products');
             container.innerHTML = '';
 
-            Object.values(products).forEach(product => {
-                const productDiv = document.createElement('div');
-                productDiv.className = 'product-item';
-                productDiv.innerHTML = `
-                    <div class="product-info">
-                        <div class="product-name">${product.name}</div>
-                        <div class="product-category">${product.category}</div>
-                    </div>
-                    <div class="product-price">$${product.price}</div>
-                    <div class="quantity-control">
-                        <button onclick="removeFromCart('${product.id}')">-</button>
-                        <span id="qty-${product.id}">0</span>
-                        <button onclick="addToCart('${product.id}')">+</button>
-                    </div>
+            Object.entries(groupedProducts).forEach(([category, productsInCategory]) => {
+                if (productsInCategory.length === 0) return;
+
+                // Crear sección de categoría
+                const categorySection = document.createElement('div');
+                categorySection.className = 'category-section';
+                
+                const categoryHeader = document.createElement('div');
+                categoryHeader.className = 'category-header';
+                categoryHeader.innerHTML = `
+                    <h3>${category}</h3>
+                    <span class="toggle-icon">▶</span>
                 `;
-                container.appendChild(productDiv);
+                
+                const categoryContent = document.createElement('div');
+                categoryContent.className = 'category-products';
+                categoryContent.style.display = 'none'; // Empezar cerradas por defecto
+                
+                // Renderizar productos de esta categoría
+                productsInCategory.forEach(product => {
+                    const productDiv = document.createElement('div');
+                    productDiv.className = 'product-item';
+                    productDiv.innerHTML = `
+                        <div class="product-info">
+                            <div class="product-name">${product.name}</div>
+                        </div>
+                        <div class="product-price">$${product.price}</div>
+                        <div class="quantity-control">
+                            <button onclick="removeFromCart('${product.id}')">-</button>
+                            <span id="qty-${product.id}">0</span>
+                            <button onclick="addToCart('${product.id}')">+</button>
+                        </div>
+                    `;
+                    categoryContent.appendChild(productDiv);
+                });
+                
+                // Funcionalidad de colapsar/expandir categoría
+                categoryHeader.addEventListener('click', () => {
+                    const isCollapsed = categoryContent.style.display === 'none';
+                    categoryContent.style.display = isCollapsed ? 'block' : 'none';
+                    const toggleIcon = categoryHeader.querySelector('.toggle-icon');
+                    toggleIcon.textContent = isCollapsed ? '▼' : '▶';
+                });
+                
+                categorySection.appendChild(categoryHeader);
+                categorySection.appendChild(categoryContent);
+                container.appendChild(categorySection);
             });
         }
 

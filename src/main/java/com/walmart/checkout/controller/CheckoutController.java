@@ -15,7 +15,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.FieldError;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
@@ -144,6 +143,13 @@ public class CheckoutController {
     @ApiOperation(value = "Get available products", notes = "Retrieve all products available for purchase")
     public ResponseEntity<Map<String, Product>> getProducts() {
         return ResponseEntity.ok(productService.getAllProducts());
+    }
+    
+    @GetMapping("/products/grouped")
+    @ApiOperation(value = "Get products grouped by category", notes = "Retrieve all products grouped by their categories")
+    public ResponseEntity<Map<String, List<Product>>> getProductsGroupedByCategory() {
+        Map<String, List<Product>> groupedProducts = productService.getProductsGroupedByCategory();
+        return ResponseEntity.ok(groupedProducts);
     }
     
     @ExceptionHandler(MethodArgumentNotValidException.class)
